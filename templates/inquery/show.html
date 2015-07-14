@@ -1,0 +1,12 @@
+{{define "content"}}
+{{with .Inquery}}
+<h1>お問い合わせ詳細</h1>
+  <div class="container">
+    <p>{{ .Content }}</p>
+    <p>{{ .Created }}</p>
+  </div>
+  <div class="center-block>
+    <button type="button" class="btn btn-danger" id="deleteButton" value="{{ .Id }}">削除</button>
+  </div>
+{{end}}
+{{end}}

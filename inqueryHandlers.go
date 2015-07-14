@@ -20,6 +20,7 @@ func inqueryIndex(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
 	page, _ := strconv.Atoi(params.Get("page"))
 	maxResults, _ := strconv.Atoi(params.Get("maxResults"))
+	dataType := params.Get("dataType")
 
 	offset := maxResults * (page - 1)
 
@@ -34,29 +35,37 @@ func inqueryIndex(w http.ResponseWriter, r *http.Request) {
 	var inqueries Inqueries
 
 	_, err := o.QueryTable("inquery").Limit(maxResults, offset).OrderBy("id").All(&inqueries)
-
-	//response, err := json.Marshal(inqueries)
 	checkError(w, err)
 
 	w.WriteHeader(200)
-	//w = setHeader(w)
-	//fmt.Fprintln(w, string(response))
 
-	//こっからテンプレート
-	data := map[string]Inqueries{
-		"Inqueries": inqueries,
-	}
-	tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/inquery/index.html"))
-	w.Header().Set("Content-Type", "text/html")
+	if dataType == "json" {
+		response, err := json.Marshal(inqueries)
+		if err != nil {
+			fmt.Fprintln(w, err)
+		}
+		w = setHeader(w)
+		fmt.Fprintln(w, string(response))
+	} else {
+		//こっからテンプレート
+		data := map[string]Inqueries{
+			"Inqueries": inqueries,
+		}
+		tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/inquery/index.html"))
+		w.Header().Set("Content-Type", "text/html")
 
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		panic(err)
+		err = tmpl.Execute(w, data)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
 
 func inqueryShow(w http.ResponseWriter, r *http.Request) {
 	o := orm.NewOrm()
+
+	params := r.URL.Query()
+	dataType := params.Get("dataType")
 
 	vars := mux.Vars(r)
 	inqueryID, _ := strconv.Atoi(vars["inqueryId"])
@@ -69,11 +78,26 @@ func inqueryShow(w http.ResponseWriter, r *http.Request) {
 	} else if err == orm.ErrMissPK {
 		fmt.Fprintln(w, "No primary key found.")
 	} else {
-		response, err := json.Marshal(inquery)
-		checkError(w, err)
-		w = setHeader(w)
 		w.WriteHeader(200)
-		fmt.Fprintln(w, string(response))
+		if dataType == "json" {
+			response, err := json.Marshal(inquery)
+			checkError(w, err)
+			w = setHeader(w)
+			fmt.Fprintln(w, string(response))
+		} else {
+			//こっからテンプレート
+			data := map[string]Inquery{
+				"Inquery": inquery,
+			}
+			tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/inquery/show.html"))
+			w.Header().Set("Content-Type", "text/html")
+
+			err = tmpl.Execute(w, data)
+			if err != nil {
+				panic(err)
+			}
+
+		}
 	}
 }
 
