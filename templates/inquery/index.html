@@ -1,0 +1,10 @@
+{{ define "content" }}
+<h1>お問い合わせ一覧</h1>
+
+{{ range .Inqueries }}
+<div>
+  <p>{{ .Content }}</p>
+  <p>{{ .Created }}</p>
+</div>
+{{end}}
+{{end}}
