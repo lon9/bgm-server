@@ -1,7 +1,15 @@
 {
 	"ImportPath": "bgm-server",
 	"GoVersion": "go1.4.2",
+	"Packages": [
+		"./..."
+	],
 	"Deps": [
+		{
+			"ImportPath": "github.com/astaxie/beego/orm",
+			"Comment": "v1.5.0-3-ga89f14d",
+			"Rev": "a89f14d80dab442927bdc11d641aa1250ab8ad71"
+		},
 		{
 			"ImportPath": "github.com/gorilla/context",
 			"Rev": "215affda49addc4c8ef7e2534915df2c8c35c6cd"
@@ -9,6 +17,11 @@
 		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Rev": "9cb89f07ca03c6a28d1e237ba033bc6a29422fd6"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-56-gdc50b6a",
+			"Rev": "dc50b6ad2d3ee836442cf3389009c7cd1e64bb43"
 		}
 	]
 }
