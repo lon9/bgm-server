@@ -31,7 +31,7 @@ func main() {
 	router := NewRouter()
 
 	if strings.Contains(hostname, "local") {
-		log.Fatal(http.ListenAndServe(":8000", router))
+		log.Fatal(http.ListenAndServe(":9000", router))
 	} else {
 		log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), router))
 	}
