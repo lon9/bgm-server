@@ -2,7 +2,7 @@
 <h1>お問い合わせ一覧</h1>
   <div class="list-group">
   {{ range .Inqueries }}
-  <a href="http://localhost:8000/inquery/{{.Id}}" class="list-group-item">{{.Content}}<br>{{.Created}}></a>
+  <a href="http://localhost:9000/inquery/{{.Id}}" class="list-group-item">{{.Content|html}}<br>{{.Created|html}}></a>
   {{end}}
   </div>
 {{end}}

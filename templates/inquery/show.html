@@ -5,8 +5,10 @@
     <p>{{ .Content }}</p>
     <p>{{ .Created }}</p>
   </div>
-  <div class="center-block>
-    <button type="button" class="btn btn-danger" id="deleteButton" value="{{ .Id }}">削除</button>
+  <div class="center-block">
+    <form action="/inquery/{{ .Id }}" method="DELETE">
+      <input type="submit" class="btn btn-danger" value="削除">
+    </form>
   </div>
 {{end}}
 {{end}}
