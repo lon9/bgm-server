@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/astaxie/beego/orm"
-	"github.com/gorilla/mux"
+	"bgm-server/Godeps/_workspace/src/github.com/astaxie/beego/orm"
+	"bgm-server/Godeps/_workspace/src/github.com/gorilla/mux"
 )
 
 func inqueryIndex(w http.ResponseWriter, r *http.Request) {

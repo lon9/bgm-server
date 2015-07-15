@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/astaxie/beego/orm"
-	_ "github.com/lib/pq"
+	"bgm-server/Godeps/_workspace/src/github.com/astaxie/beego/orm"
+	_ "bgm-server/Godeps/_workspace/src/github.com/lib/pq"
 	"log"
 	"net/http"
 	"os"

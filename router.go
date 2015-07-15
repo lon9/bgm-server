@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
+	"bgm-server/Godeps/_workspace/src/github.com/gorilla/mux"
 	"net/http"
 )
 
