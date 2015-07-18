@@ -18,8 +18,8 @@ type Video struct {
 	VideoId         string     `json: "videoId" orm: "unique"`
 	Title           string     `json: "title"`
 	Artist          string     `json: "artist"`
-	Highthumbnail   *Thumbnail `json: "highThumbnail" orm: "rel(one);on_delete(set_null)"`
-	MediumThumbnail *Thumbnail `json: "mediumThumbnail" orm: "rel(one);on_delete(set_null)"`
+	Highthumbnail   *Thumbnail `json: "highThumbnail" orm: "rel(one)"`
+	MediumThumbnail *Thumbnail `json: "mediumThumbnail" orm: "rel(one)"`
 	PublishedDate   time.Time  `json: "publishedDate"`
 	Created         time.Time  `json: "created" orm: "auto_now_add;type(datetime)"`
 	Updated         time.Time  `json: "updated" orm: "auto_now;type(datetime)"`
