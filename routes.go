@@ -46,4 +46,16 @@ var routes = Routes{
 		"/inquery/{inqueryId}",
 		inqueryDelete,
 	},
+	Route{
+		"VideoIndex",
+		"GET",
+		"/video",
+		videoIndex,
+	},
+	Route{
+		"VideoUodate",
+		"POST",
+		"/video",
+		videoUpdate,
+	},
 }
