@@ -55,7 +55,13 @@ var routes = Routes{
 	Route{
 		"VideoUodate",
 		"POST",
-		"/video",
+		"/video/{videoId}",
 		videoUpdate,
+	},
+	Route{
+		"LikeUpdate",
+		"POST",
+		"/like",
+		likeUpdate,
 	},
 }

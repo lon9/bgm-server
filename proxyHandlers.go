@@ -14,7 +14,6 @@ func proxy(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		panic(err)
-		return
 	}
 
 	defer resp.Body.Close()
