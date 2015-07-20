@@ -21,6 +21,8 @@ func videoIndex(w http.ResponseWriter, r *http.Request) {
 	maxResults, _ := strconv.Atoi(params.Get("maxResults"))
 	order := params.Get("order")
 
+	w = utils.SetJSONHeader(w)
+
 	offset := maxResults * (page - 1)
 
 	if page == 0 {
@@ -44,28 +46,31 @@ func videoIndex(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	//Get thumbnails.
 	for i, video := range videos {
-		if video.HighThumbnail != nil {
-			_, err := o.LoadRelated(&video, "HighThumbnail")
-			if err != nil {
+		if video.MediumThumbnail != nil {
+			mediumThumbnail := Thumbnail{Id: video.MediumThumbnail.Id}
+			err := o.Read(&mediumThumbnail)
+			if err == nil {
+				video.MediumThumbnail = &mediumThumbnail
+			} else {
 				panic(err)
 			}
 		}
-		if video.MediumThumbnail != nil {
-			_, err = o.LoadRelated(&video, "MediumThumbnail")
-			if err != nil {
+		if video.HighThumbnail != nil {
+			highThumbnail := Thumbnail{Id: video.HighThumbnail.Id}
+			err := o.Read(&highThumbnail)
+			if err == nil {
+				video.HighThumbnail = &highThumbnail
+			} else {
 				panic(err)
 			}
 		}
 		videos[i] = video
 	}
-	w.WriteHeader(200)
 
+	w.WriteHeader(200)
 	response, err := json.Marshal(videos)
 	utils.CheckError(w, err)
-	w = utils.SetJSONHeader(w)
-
 	fmt.Fprintln(w, string(response))
 }
 
