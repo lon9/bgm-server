@@ -136,3 +136,8 @@ func videoDelete(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(404)
 	}
 }
+
+func videoOptions(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET,POST, DELETE")
+}

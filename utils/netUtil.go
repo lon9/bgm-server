@@ -16,7 +16,5 @@ func CheckError(w http.ResponseWriter, err error) {
 func SetJSONHeader(w http.ResponseWriter) http.ResponseWriter {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
 	return w
 }
