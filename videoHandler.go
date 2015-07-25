@@ -14,14 +14,21 @@ import (
 
 //Videoを一覧する関数order=likeでおすすめの多い順で取得
 func videoIndex(w http.ResponseWriter, r *http.Request) {
+	w = utils.SetJSONHeader(w)
+
+	if utils.CheckAuth(r) == false {
+		w.Header().Set("WWW-Authenticate", `Basic realm="MY REALM"`)
+		w.WriteHeader(401)
+		w.Write([]byte("401 Unauthorized\n"))
+		return
+	}
+
 	o := orm.NewOrm()
 
 	params := r.URL.Query()
 	page, _ := strconv.Atoi(params.Get("page"))
 	maxResults, _ := strconv.Atoi(params.Get("maxResults"))
 	order := params.Get("order")
-
-	w = utils.SetJSONHeader(w)
 
 	offset := maxResults * (page - 1)
 
@@ -44,28 +51,6 @@ func videoIndex(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil {
 		panic(err)
-	}
-
-	for i, video := range videos {
-		if video.MediumThumbnail != nil {
-			mediumThumbnail := Thumbnail{Id: video.MediumThumbnail.Id}
-			err := o.Read(&mediumThumbnail)
-			if err == nil {
-				video.MediumThumbnail = &mediumThumbnail
-			} else {
-				panic(err)
-			}
-		}
-		if video.HighThumbnail != nil {
-			highThumbnail := Thumbnail{Id: video.HighThumbnail.Id}
-			err := o.Read(&highThumbnail)
-			if err == nil {
-				video.HighThumbnail = &highThumbnail
-			} else {
-				panic(err)
-			}
-		}
-		videos[i] = video
 	}
 
 	w.WriteHeader(200)

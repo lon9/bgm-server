@@ -34,15 +34,7 @@ func likeUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//DBに保存
-	if created, _, err := o.ReadOrCreate(&video, "videoId"); err == nil {
-		if created {
-			if video.HighThumbnail != nil {
-				o.Insert(video.HighThumbnail)
-			}
-			if video.MediumThumbnail != nil {
-				o.Insert(video.MediumThumbnail)
-			}
-		}
+	if _, _, err := o.ReadOrCreate(&video, "videoId"); err == nil {
 		video.Liked = video.Liked + 1
 		if _, err := o.Update(&video); err == nil {
 			w.WriteHeader(200)
