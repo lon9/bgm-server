@@ -18,8 +18,8 @@ type Video struct {
 	VideoId         string     `json:"videoId" orm:"unique"`
 	Title           string     `json:"title"`
 	Artist          string     `json:"artist,omitempty" orm:"null"`
-	HighThumbnail   *Thumbnail `json:"highThumbnail,omitempty" orm:"rel(one);null"`
-	MediumThumbnail *Thumbnail `json:"mediumThumbnail,omitempty" orm:"rel(one);null"`
+	HighThumbnail   *Thumbnail `json:"highThumbnail,omitempty" orm:"rel(one);on_delete(cascade);null"`
+	MediumThumbnail *Thumbnail `json:"mediumThumbnail,omitempty" orm:"rel(one);on_delete(cascade);null"`
 	PublishedDate   time.Time  `json:"publishedDate,omitempty" orm:"null"`
 	Created         time.Time  `json:"created" orm:"auto_now_add;type(datetime);null"`
 	Updated         time.Time  `json:"updated" orm:"auto_now;type(datetime);null"`
@@ -44,7 +44,7 @@ type Videos []Video
 func init() {
 	orm.RegisterModel(new(Inquery), new(Video), new(Thumbnail))
 
-	err := orm.RunSyncdb("default", true, true)
+	err := orm.RunSyncdb("default", false, true)
 	if err != nil {
 		panic(err)
 	}

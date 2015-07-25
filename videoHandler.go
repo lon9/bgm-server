@@ -116,3 +116,23 @@ func videoUpdate(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func videoDelete(w http.ResponseWriter, r *http.Request) {
+	o := orm.NewOrm()
+	vars := mux.Vars(r)
+	videoID, err := strconv.Atoi(vars["videoId"])
+
+	w = utils.SetJSONHeader(w)
+
+	if err != nil {
+		w.WriteHeader(400)
+		return
+	}
+	video := Video{Id: videoID}
+
+	if _, err := o.Delete(&video); err == nil {
+		w.WriteHeader(204)
+	} else {
+		w.WriteHeader(404)
+	}
+}
