@@ -82,6 +82,8 @@ func videoUpdate(w http.ResponseWriter, r *http.Request) {
 	videoID, _ := strconv.Atoi(vars["videoId"])
 	video := Video{Id: videoID}
 
+	w = utils.SetJSONHeader(w)
+
 	//bodyからデータを取り出す。
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 	checkError(w, err)
@@ -90,8 +92,6 @@ func videoUpdate(w http.ResponseWriter, r *http.Request) {
 		utils.CheckError(w, err)
 		panic(err)
 	}
-
-	w = utils.SetJSONHeader(w)
 
 	var newVideo Video
 	//jsonをパース
