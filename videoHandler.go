@@ -16,13 +16,6 @@ import (
 func videoIndex(w http.ResponseWriter, r *http.Request) {
 	w = utils.SetJSONHeader(w)
 
-	if utils.CheckAuth(r) == false {
-		w.Header().Set("WWW-Authenticate", `Basic realm="MY REALM"`)
-		w.WriteHeader(401)
-		w.Write([]byte("401 Unauthorized\n"))
-		return
-	}
-
 	o := orm.NewOrm()
 
 	params := r.URL.Query()
@@ -60,14 +53,20 @@ func videoIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func videoUpdate(w http.ResponseWriter, r *http.Request) {
+	w = utils.SetJSONHeader(w)
+	if utils.CheckAuth(r) == false {
+		w.Header().Set("WWW-Authenticate", `Basic realm="MY REALM"`)
+		w.WriteHeader(401)
+		w.Write([]byte("401 Unauthorized\n"))
+		return
+	}
+
 	o := orm.NewOrm()
 
 	//パラメタからアップデートしたいvideoIdを取得
 	vars := mux.Vars(r)
 	videoID, _ := strconv.Atoi(vars["videoId"])
 	video := Video{Id: videoID}
-
-	w = utils.SetJSONHeader(w)
 
 	//bodyからデータを取り出す。
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
@@ -103,6 +102,14 @@ func videoUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func videoDelete(w http.ResponseWriter, r *http.Request) {
+	w = utils.SetJSONHeader(w)
+	if utils.CheckAuth(r) == false {
+		w.Header().Set("WWW-Authenticate", `Basic realm="MY REALM"`)
+		w.WriteHeader(401)
+		w.Write([]byte("401 Unauthorized\n"))
+		return
+	}
+
 	o := orm.NewOrm()
 	vars := mux.Vars(r)
 	videoID, err := strconv.Atoi(vars["videoId"])
