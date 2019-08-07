@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bgm-server/Godeps/_workspace/src/github.com/astaxie/beego/orm"
-	"bgm-server/utils"
 	"encoding/json"
 	"fmt"
+	"github.com/astaxie/beego/orm"
+	"github.com/lon9/bgm-server/utils"
 	"io"
 	"io/ioutil"
 	"net/http"

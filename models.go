@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bgm-server/Godeps/_workspace/src/github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 	"time"
 )
 

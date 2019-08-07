@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bgm-server/Godeps/_workspace/src/github.com/astaxie/beego/orm"
-	_ "bgm-server/Godeps/_workspace/src/github.com/lib/pq"
+	"github.com/astaxie/beego/orm"
+	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 	"os"
@@ -12,7 +12,7 @@ import (
 var hostname string
 
 func init() {
-	orm.RegisterDriver("postgres", orm.DR_Postgres)
+	orm.RegisterDriver("postgres", orm.DRPostgres)
 
 	var err error
 	hostname, err = os.Hostname()
